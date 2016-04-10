@@ -35,15 +35,15 @@ table[0, ]
 paste("Número de NAs na tabela: ", sum(is.na(table)) )
 
 # Mostra a quantidade de linhas (instâncias) com NA
-linhas_NA = c()
-total = 0 
+linhas_NA <- c()
+total <- 0
 for(i in 1:numero_linhas)
 {
     # Se existir pelo menos um NA na linha
     if( sum(is.na(table[i,])) > 0)
     {
         linhas_NA <- c(linhas_NA,i)
-        total = total + 1
+        total <- total + 1
     }
 }
 paste("Linhas com pelo menos um NA: ",linhas_NA )
@@ -51,20 +51,23 @@ paste("Número de linhas (instâncias) com NA: ", total )
 paste("Porcentagem de instâncias com pelo menos um NA: ", 100*(total/numero_linhas) )
 
 
+linhas_NA70 <- c()
 total70 <- 0
 for(j in numero_linhas:1)
 {
     # Entra no if se a instância possuir mais de 70% de NAs
     if( sum(is.na(table[j,])) > (numero_colunas-2)*0.7 )
     {
-        table <- table[-c(j),]
+        linhas_NA70 <- c(linhas_NA70,i)
         total70 <- total70 + 1
     }
 }
+
 paste("Número de linhas (instâncias) com 70% de NAs: ", total70 )
 paste("Porcentagem de instâncias com mais de 70% de NAs", 100*(total70/numero_linhas))
 
-write.csv(table, file = "filtered_train.csv")
+filtered_table <- table[-linhasNA_70,]
+write.csv(filtered_table, file = "filtered_train.csv")
 
 
 
