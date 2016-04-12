@@ -18,10 +18,11 @@
 calcNA <- function(x, percentage){
     linhas_NA <- c()
     total_linhas <- 0
+    nb_NAs <- (ncol(x) - 2)* percentage
     for(i in 1:nrow(x))
     {
-        # Entra no if se a instância possuir mais de 70% de NAs
-        if( sum(is.na(x[i,])) > (ncol(x) - 2)* percentage )
+        # Entra no if se a instância possuir mais nb_NAs de NAs
+        if( sum(is.na(x[i,])) > nb_NAs )
         {
             linhas_NA <- c(linhas_NA,i)
             total_linhas <- total_linhas + 1
@@ -60,10 +61,10 @@ paste("Número de NAs na tabela: ", sum(is.na(table)) )
 # Mostra a quantidade de linhas (instâncias) com NA
 linhas_NA <- calcNA(table,0.0)
 
-linhas_NA85 <- calcNA(table,0.80)
+linhas_NA85 <- calcNA(table,0.70)
 
-# filtered_table <- table[-linhas_NA85,]
-# write.csv(filtered_table, file = "filtered_train.csv")
+filtered_table <- table[-linhas_NA85,]
+write.csv(filtered_table, file = "filtered_train.csv")
 
 
 # # Percorre todas as colunas
