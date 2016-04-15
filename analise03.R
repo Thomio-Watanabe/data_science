@@ -45,7 +45,8 @@ pie(slices, labels = rotulos)
 
 
 # -------------------------------------------------------------------------------------
-
+# http://machinelearningmastery.com/feature-selection-with-the-caret-r-package/
+#
 # Seleção de subconjunto de atributos para redução da dimensionalidade
 # Método empregado: Filtragem -> independente do algoritmo de AM
 # Correlation-based feature extraction 

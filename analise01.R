@@ -64,7 +64,7 @@ linhas_NA <- calcNA(table,0.0)
 linhas_NA85 <- calcNA(table,0.70)
 
 filtered_table <- table[-linhas_NA85,]
-write.csv(filtered_table, file = "filtered_train.csv")
+write.csv(filtered_table, file = "train_filtered.csv")
 
 
 # # Percorre todas as colunas

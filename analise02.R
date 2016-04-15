@@ -24,7 +24,7 @@ getLastValue <- function(x,k){
 }
 # -------------------------------------------------------------------------------------
 # Carrega as informações
-table_name <- 'filtered_train.csv'
+table_name <- 'train_filtered.csv'
 paste("Carregando tabela de trainamento: ",table_name)
 # table = read.csv(table_name, nrows = 10000 )
 table = read.csv(table_name)
