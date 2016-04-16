@@ -17,16 +17,15 @@
 # -------------------------------------------------------------------------------------
 
 
-# -------------------------------------------------------------------------------------
-# Amostragem da tabela 
-# -------------------------------------------------------------------------------------
+# Carrega as tabelas
+full_table <- read.csv("train_complete_na.csv")
+train_table <- read.csv("train_sampled.csv")
 
-# Carrega as informações
-table_name <- 'train_complete_na.csv'
-paste("Carregando tabela de trainamento: ",table_name)
-# table = read.csv(table_name, nrows = 10000 )
-table = read.csv(table_name)
+# retorna as posições dos valores amostrados que estão na tabela original
+train_samples <- which( full_table$ID %in% table$ID )
 
+# Cria uma table apenas com as instâncias que não foram usadas no teste
+test_table <- full_table[-train_samples,]
 
 # Recupera apenas os atributos que serão utilizados
 attrib_names <- c("ID",   "target", "v4",   "v10",
@@ -35,37 +34,24 @@ attrib_names <- c("ID",   "target", "v4",   "v10",
                   "v56",  "v62",    "v64",  "v72",
                   "v93",  "v101",   "v106", "v110",
                   "v114", "v119",   "v123", "v129")
-reduced_table <- as.data.frame( cbind( table[attrib_names] ))
 
-# Realiza a amostragem mantendo a relação entre 0 e 1 do target:
-target_mean <- mean(reduced_table$target)
-sampled_mean <- 0.0
-sampled_table <- data.frame()
+# Obs: o atributo v56 não roda no randomForest
+# table$v56 <- NULL
 
-# Número de amostras
-number_samples <- round( 0.4*nrow(reduced_table) )
-cat( paste("Número de amostras final: ", number_samples, '\n') )
-
-while ((sampled_mean <= 0.9*target_mean)||( sampled_mean >= 1.1*target_mean)) {
-    sampled_rows <- sample(nrow(reduced_table), number_samples )
-    sampled_table <- reduced_table[sampled_rows,]
-    sampled_mean <- mean(sampled_table$target)
-}
-
-cat( paste("Média do target nos dados amostrados: ", sampled_mean, '\n') )
+reduced_table <- as.data.frame( cbind( test_table[attrib_names] ))
 
 # -------------------------------------------------------------------------------------
 # Salva resultados
 # -------------------------------------------------------------------------------------
-nome_arquivo_saida <- "train_sampled.csv"
+
+nome_arquivo_saida <- "test_sampled.csv"
 cat( paste("Salvando tabela no arquivo ", nome_arquivo_saida ,'\n') )
-write.csv( sampled_table, file = nome_arquivo_saida )
-
-
+write.csv( reduced_table, file = nome_arquivo_saida )
 
 # -------------------------------------------------------------------------------------
 # Deleta a variável que contém a tabela
-rm(table)
+rm(full_table)
+rm(train_table)
+rm(test_table)
 rm(reduced_table)
-rm(sampled_table)
 # -------------------------------------------------------------------------------------
