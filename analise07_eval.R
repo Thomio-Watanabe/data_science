@@ -52,7 +52,7 @@ min_function <- function(par,data){
 
 # Carrega a tabela de treinamento
 table_name <- 'test_sampled.csv'
-cat( paste("Carregando tabela de treino: ",table_name) )
+cat( paste("Carregando tabela de treino: ",table_name,'\n') )
 test_table <- read.csv(table_name)
 
 
@@ -67,34 +67,37 @@ test_table_02 <- test_table[ -test_samples, ]
 
 
 # Carrega modelo do randomForest
-# rf <- readRDS("model_randomForest1000Trees.rds")   # Erro -> 0.1678097
-rf <- readRDS("model_randomForest3000Trees.rds")    # Erro -> 0.167793
+rf <- readRDS("model_randomForest1000Trees.rds")   # Erro -> 0.1678097
+# rf <- readRDS("model_randomForest3000Trees.rds")    # Erro -> 0.167793
 
 library(randomForest)
 prediction_01 <- predict(rf, test_table_01)
 prediction_02 <- predict(rf, test_table_02)
 
-
 # Calcula o log loss das duas tabelas e mostra o resultado
 log_loss_01 <- MultiLogLoss(test_table_01$target,prediction_01)
-cat( paste("Log loss tabela de test 01: ",log_loss_01, '\n') )     # Erro -> 0.1101543
+cat( paste("Log loss tabela de test 01: ",log_loss_01, '\n') )     
+# Erro -> 0.500718207624154 (modelo com 55mil amostras)
+# Erro -> 0.622906583258454 (modelo com amostragem 50%-50%)
 
 log_loss_02 <- MultiLogLoss(test_table_02$target,prediction_02)
-cat( paste("Log loss tabela de test 02: ",log_loss_02, '\n') )     # Erro -> 0.1101543
+cat( paste("Log loss tabela de test 02: ",log_loss_02, '\n') )     
+# Erro -> 0.504682177335846 (modelo com 55mil amostras)
+# Erro -> 0.623450112200552 (modelo com amostragem 50%-50%)
 
 
 ## Otimização -> calcula os valores de threshold que minimizam o logLoss
 ## lower_threshold <- seq(from = 0.1, to = 0.4, by = 0.01)
 ## upper_threshold <- seq(from = 0.85, to = 0.99, by = 0.01)
-result_01 <- optim(par = c(0.3, 0.9),
-                min_function,
-                data = test_table_01$target)
+#result_01 <- optim(par = c(0.3, 0.9),
+#                min_function,
+#                data = test_table_01$target)
 
-result_02 <- optim(par = c(0.3, 0.9),
-                min_function,
-                data = test_table_02$target)
-result_01
-result_02
+#result_02 <- optim(par = c(0.3, 0.9),
+#                min_function,
+#                data = test_table_02$target)
+#result_01
+#result_02
 ## cat( paste("Threshold minimo e máximo: ",result) )
 
 # -------------------------------------------------------------------------------------

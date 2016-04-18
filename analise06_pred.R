@@ -22,7 +22,7 @@ getLastValue <- function(x,k){
     return (x[k])
 }
 # -------------------------------------------------------------------------------------
-# Antes de avaliar os dados de teste é necessário condicionar a tabela
+# Antes de predizer os dados de teste é necessário condicionar a tabela
 # -------------------------------------------------------------------------------------
 # Carrega a tabela de teste
 table_name <- 'test.csv'

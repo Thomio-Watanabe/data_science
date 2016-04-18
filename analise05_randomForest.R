@@ -25,11 +25,6 @@ table = read.csv(table_name)
 # Deleta atributo v56 -> Random forest não resolve atributos categóricos com muitos níveis
 table$v56 <- NULL
 
-# Calcula o randomForest
-library(randomForest)
-rf <- randomForest(target~.,table[3:ncol(table)],ntree=1000 )
-# Plota os atributos mais importantes no cálculo
-varImpPlot(rf)
 
 # Nome dos atributos da tabela de treino
 attr_names <- names(table)
@@ -43,14 +38,14 @@ saveRDS(attr_names,file="attr_names.rds")
 # Calcula o randomForest
 set.seed(100)
 library(randomForest)
-rf <- randomForest(target~., table[3:ncol(table)], ntree=3000 )
-
+rf <- randomForest( target~., table[3:ncol(table)], ntree=1000 )
 # Plota os atributos mais importantes no cálculo
 varImpPlot(rf)
 
+
 # Salva modelo
 # save(rf,file="model_randomForest3000Trees.rda")
-saveRDS(rf,file="model_randomForest3000Trees.rds")
+saveRDS(rf,file="model_randomForest1000Trees.rds")
 
 
 # -------------------------------------------------------------------------------------

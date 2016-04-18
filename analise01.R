@@ -61,9 +61,9 @@ paste("Número de NAs na tabela: ", sum(is.na(table)) )
 # Mostra a quantidade de linhas (instâncias) com NA
 linhas_NA <- calcNA(table,0.0)
 
-linhas_NA85 <- calcNA(table,0.70)
+linhas_NA70 <- calcNA(table,0.70)
 
-filtered_table <- table[-linhas_NA85,]
+filtered_table <- table[-linhas_NA70,]
 write.csv(filtered_table, file = "train_filtered.csv")
 
 

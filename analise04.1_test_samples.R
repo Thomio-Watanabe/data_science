@@ -22,7 +22,7 @@ full_table <- read.csv("train_complete_na.csv")
 train_table <- read.csv("train_sampled.csv")
 
 # retorna as posições dos valores amostrados que estão na tabela original
-train_samples <- which( full_table$ID %in% table$ID )
+train_samples <- which( full_table$ID %in% train_table$ID )
 
 # Cria uma table apenas com as instâncias que não foram usadas no teste
 test_table <- full_table[-train_samples,]
@@ -38,7 +38,7 @@ attrib_names <- c("ID",   "target", "v4",   "v10",
 # Obs: o atributo v56 não roda no randomForest
 # table$v56 <- NULL
 
-reduced_table <- as.data.frame( cbind( test_table[attrib_names] ))
+reduced_table <- as.data.frame( cbind( test_table[attrib_names] ) )
 
 # -------------------------------------------------------------------------------------
 # Salva resultados
@@ -47,6 +47,7 @@ reduced_table <- as.data.frame( cbind( test_table[attrib_names] ))
 nome_arquivo_saida <- "test_sampled.csv"
 cat( paste("Salvando tabela no arquivo ", nome_arquivo_saida ,'\n') )
 write.csv( reduced_table, file = nome_arquivo_saida )
+
 
 # -------------------------------------------------------------------------------------
 # Deleta a variável que contém a tabela

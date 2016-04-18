@@ -35,24 +35,39 @@ attrib_names <- c("ID",   "target", "v4",   "v10",
                   "v56",  "v62",    "v64",  "v72",
                   "v93",  "v101",   "v106", "v110",
                   "v114", "v119",   "v123", "v129")
+
 reduced_table <- as.data.frame( cbind( table[attrib_names] ))
 
-# Realiza a amostragem mantendo a relação entre 0 e 1 do target:
-target_mean <- mean(reduced_table$target)
-sampled_mean <- 0.0
-sampled_table <- data.frame()
 
-# Número de amostras
-number_samples <- round( 0.4*nrow(reduced_table) )
-cat( paste("Número de amostras final: ", number_samples, '\n') )
+samples_00 <- which( reduced_table$target == 0 )
+samples_01 <- which( reduced_table$target == 1 )
 
-while ((sampled_mean <= 0.9*target_mean)||( sampled_mean >= 1.1*target_mean)) {
-    sampled_rows <- sample(nrow(reduced_table), number_samples )
-    sampled_table <- reduced_table[sampled_rows,]
-    sampled_mean <- mean(sampled_table$target)
-}
+# seleciona 10.000 amostras de cada grupo
+n_amostras <- 10000
+sel_samples_00 <- sample(samples_00,n_amostras)
+sel_samples_01 <- sample(samples_01,n_amostras)
 
-cat( paste("Média do target nos dados amostrados: ", sampled_mean, '\n') )
+sampled_table <- reduced_table[rbind(sel_samples_00, sel_samples_01),]
+
+
+
+## Realiza a amostragem mantendo a relação entre 0 e 1 do target:
+#target_mean <- mean(reduced_table$target)
+#sampled_mean <- 0.0
+#sampled_table <- data.frame()
+
+## Número de amostras
+#number_samples <- round( 0.5 * nrow(reduced_table) )
+#cat( paste("Número de amostras final: ", number_samples, '\n') )
+
+## Amostragem estratificada proposcional, mantém a relação de 3x1 no target
+#while ((sampled_mean <= 0.9*target_mean)||( sampled_mean >= 1.1*target_mean)) {
+#    sampled_rows <- sample(nrow(reduced_table), number_samples )
+#    sampled_table <- reduced_table[sampled_rows,]
+#    sampled_mean <- mean(sampled_table$target)
+#}
+
+#cat( paste("Média do target nos dados amostrados: ", sampled_mean, '\n') )
 
 # -------------------------------------------------------------------------------------
 # Salva resultados
