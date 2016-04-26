@@ -43,7 +43,7 @@ samples_00 <- which( reduced_table$target == 0 )
 samples_01 <- which( reduced_table$target == 1 )
 
 # seleciona 10.000 amostras de cada grupo
-n_amostras <- 10000
+n_amostras <- 15000
 sel_samples_00 <- sample(samples_00,n_amostras)
 sel_samples_01 <- sample(samples_01,n_amostras)
 
