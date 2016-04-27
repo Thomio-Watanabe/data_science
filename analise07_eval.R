@@ -67,8 +67,8 @@ test_table_02 <- test_table[ -test_samples, ]
 
 
 # Carrega modelo do randomForest
-# rf <- readRDS("model_randomForest1000Trees.rds")   # Erro -> 0.1678097
-rf <- readRDS("model_randomForest3000Trees.rds")    # Erro -> 0.167793
+rf <- readRDS("model_randomForest1000Trees.rds")   # Erro -> 0.167809
+# rf <- readRDS("model_randomForest3000Trees.rds")    # Erro -> 0.167793
 
 library(randomForest)
 prediction_01 <- predict(rf, test_table_01)
@@ -86,15 +86,15 @@ cat( paste("Log loss tabela de test 02: ",log_loss_02, '\n') )     # Erro -> 0.1
 ## Otimização -> calcula os valores de threshold que minimizam o logLoss
 ## lower_threshold <- seq(from = 0.1, to = 0.4, by = 0.01)
 ## upper_threshold <- seq(from = 0.85, to = 0.99, by = 0.01)
-result_01 <- optim(par = c(0.3, 0.9),
-                min_function,
-                data = test_table_01$target)
-
-result_02 <- optim(par = c(0.3, 0.9),
-                min_function,
-                data = test_table_02$target)
-result_01
-result_02
+# result_01 <- optim(par = c(0.3, 0.9),
+#                 min_function,
+#                 data = test_table_01$target)
+# 
+# result_02 <- optim(par = c(0.3, 0.9),
+#                 min_function,
+#                 data = test_table_02$target)
+# result_01
+# result_02
 ## cat( paste("Threshold minimo e máximo: ",result) )
 
 # -------------------------------------------------------------------------------------

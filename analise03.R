@@ -41,8 +41,10 @@ table = read.csv(table_name)
 # Isso significa que os dados são desbalanceados e pesos devem ser usados no algoritmo de AM
 slices <- c(sum(table$target == 1),sum(table$target == 0))
 rotulos <- c("1","0")
+# png("pie_chart.png")
 pie(slices, labels = rotulos)
-
+title("Atributo Target")
+# dev.off()
 
 # -------------------------------------------------------------------------------------
 # http://machinelearningmastery.com/feature-selection-with-the-caret-r-package/
@@ -72,6 +74,12 @@ cat( paste("\n\n ", length(correlationMatrix[,pos])," atributos com correlação
 correlationMatrix[,pos]
 sink()
 
+# png("corr_atrib.png")
+barplot(correlationMatrix[,pos], main="Correlação com o atributo alvo", ylim=c(-0.3, 0.3))
+# dev.off()
+
+cat( paste( "Atributos com maior correlação em valor absoluto: \n"))
+cat( paste( sort( abs(correlationMatrix[,pos]), decreasing = TRUE) ))
 
 # -------------------------------------------------------------------------------------
 # Salva resultados

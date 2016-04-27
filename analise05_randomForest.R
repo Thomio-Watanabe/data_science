@@ -26,8 +26,11 @@ table = read.csv(table_name)
 table$v56 <- NULL
 
 # Calcula o randomForest
+set.seed(100)
 library(randomForest)
-rf <- randomForest(target~.,table[3:ncol(table)],ntree=1000 )
+rf <- randomForest(target~.,table[3:ncol(table)], ntree=1000 )
+# rf <- randomForest(target~., table[3:ncol(table)], ntree=3000 )
+
 # Plota os atributos mais importantes no cálculo
 varImpPlot(rf)
 
@@ -39,18 +42,9 @@ attr_names <- attr_names[c(-1,-3)]
 saveRDS(attr_names,file="attr_names.rds")
 # save(attr_names,file="attr_names.rda")
 
-
-# Calcula o randomForest
-set.seed(100)
-library(randomForest)
-rf <- randomForest(target~., table[3:ncol(table)], ntree=3000 )
-
-# Plota os atributos mais importantes no cálculo
-varImpPlot(rf)
-
 # Salva modelo
-# save(rf,file="model_randomForest3000Trees.rda")
-saveRDS(rf,file="model_randomForest3000Trees.rds")
+# saveRDS(rf,file="model_randomForest3000Trees.rda")
+saveRDS(rf,file="model_randomForest1000Trees.rds")
 
 
 # -------------------------------------------------------------------------------------
