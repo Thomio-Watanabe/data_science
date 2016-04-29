@@ -18,11 +18,12 @@
 
 
 # Carrega as tabelas
+cat( paste(" Reading training tables. \n" ))
 full_table <- read.csv("train_complete_na.csv")
 train_table <- read.csv("train_sampled.csv")
 
 # retorna as posições dos valores amostrados que estão na tabela original
-train_samples <- which( full_table$ID %in% table$ID )
+train_samples <- which( full_table$ID %in% train_table$ID )
 
 # Cria uma table apenas com as instâncias que não foram usadas no teste
 test_table <- full_table[-train_samples,]

@@ -65,7 +65,7 @@ write.csv( sampled_table, file = nome_arquivo_saida )
 
 # -------------------------------------------------------------------------------------
 # Deleta a variável que contém a tabela
-rm(table)
-rm(reduced_table)
-rm(sampled_table)
+# rm(table)
+# rm(reduced_table)
+# rm(sampled_table)
 # -------------------------------------------------------------------------------------

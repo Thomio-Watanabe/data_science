@@ -86,6 +86,6 @@ cat( paste( sort( abs(correlationMatrix[,pos]), decreasing = TRUE) ))
 
 
 # Deleta a variável que contém a tabela
-rm(table)
+# rm(table)
 
 # -------------------------------------------------------------------------------------
